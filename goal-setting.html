@@ -1,0 +1,2768 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stats-bar {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .game-reminder {
+            text-align: center;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .game-btn {
+            background: white;
+            color: #f5576c;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .task-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            min-width: 150px;
+        }
+
+        .task-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .task-input select, .task-input button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .task-input button {
+            background: #667eea;
+            color: white;
+        }
+
+        .task-input button:hover {
+            background: #5a67d8;
+            transform: scale(1.05);
+        }
+
+        .task-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .task-item:hover {
+            background: #e9ecef;
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .task-meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-actions button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .complete-btn {
+            background: #48bb78;
+            color: white;
+        }
+
+        .complete-btn:hover {
+            background: #38a169;
+        }
+
+        .delete-btn {
+            background: #f56565;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #e53e3e;
+        }
+
+        .timer-section {
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .timer-controls button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .start-btn {
+            background: #48bb78;
+            color: white;
+        }
+
+        .start-btn:hover {
+            background: #38a169;
+        }
+
+        .pause-btn {
+            background: #ed8936;
+            color: white;
+        }
+
+        .pause-btn:hover {
+            background: #dd6b20;
+        }
+
+        .reset-btn {
+            background: #718096;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #4a5568;
+        }
+
+        .current-task {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #e6fffa;
+            border-radius: 8px;
+            color: #234e52;
+        }
+
+        .motivation-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-buttons button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .continue-study {
+            background: #667eea;
+            color: white;
+        }
+
+        .continue-study:hover {
+            background: #5a67d8;
+        }
+
+        .play-anyway {
+            background: #f56565;
+            color: white;
+        }
+
+        .play-anyway:hover {
+            background: #e53e3e;
+        }
+
+        .icon {
+            font-size: 1.2rem;
+        }
+
+        .priority-high {
+            border-left: 4px solid #f56565;
+        }
+
+        .priority-medium {
+            border-left: 4px solid #ed8936;
+        }
+
+        .priority-low {
+            border-left: 4px solid #48bb78;
+        }
+
+        /* 图表样式 */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .chart-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .chart-tab.active {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .chart-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #667eea;
+        }
+
+        .chart-tab:hover {
+            color: #667eea;
+        }
+
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .summary-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 2000;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 10px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        .notification-success {
+            background: #48bb78;
+        }
+
+        .notification-warning {
+            background: #ed8936;
+        }
+
+        .notification-error {
+            background: #f56565;
+        }
+
+        .notification-info {
+            background: #4299e1;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    
+
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考研效率助手 - 专注当下，成就未来</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stats-bar {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .game-reminder {
+            text-align: center;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .game-btn {
+            background: white;
+            color: #f5576c;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+
+        .game-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .task-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            min-width: 150px;
+        }
+
+        .task-input input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .task-input select, .task-input button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .task-input button {
+            background: #667eea;
+            color: white;
+        }
+
+        .task-input button:hover {
+            background: #5a67d8;
+            transform: scale(1.05);
+        }
+
+        .task-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .task-item:hover {
+            background: #e9ecef;
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .task-info {
+            flex: 1;
+        }
+
+        .task-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .task-meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-actions button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .complete-btn {
+            background: #48bb78;
+            color: white;
+        }
+
+        .complete-btn:hover {
+            background: #38a169;
+        }
+
+        .delete-btn {
+            background: #f56565;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #e53e3e;
+        }
+
+        .timer-section {
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .timer-controls button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .start-btn {
+            background: #48bb78;
+            color: white;
+        }
+
+        .start-btn:hover {
+            background: #38a169;
+        }
+
+        .pause-btn {
+            background: #ed8936;
+            color: white;
+        }
+
+        .pause-btn:hover {
+            background: #dd6b20;
+        }
+
+        .reset-btn {
+            background: #718096;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #4a5568;
+        }
+
+        .current-task {
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #e6fffa;
+            border-radius: 8px;
+            color: #234e52;
+        }
+
+        .motivation-section {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-buttons button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .continue-study {
+            background: #667eea;
+            color: white;
+        }
+
+        .continue-study:hover {
+            background: #5a67d8;
+        }
+
+        .play-anyway {
+            background: #f56565;
+            color: white;
+        }
+
+        .play-anyway:hover {
+            background: #e53e3e;
+        }
+
+        .icon {
+            font-size: 1.2rem;
+        }
+
+        .priority-high {
+            border-left: 4px solid #f56565;
+        }
+
+        .priority-medium {
+            border-left: 4px solid #ed8936;
+        }
+
+        .priority-low {
+            border-left: 4px solid #48bb78;
+        }
+
+        /* 图表样式 */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .chart-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #666;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .chart-tab.active {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .chart-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #667eea;
+        }
+
+        .chart-tab:hover {
+            color: #667eea;
+        }
+
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .summary-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .summary-label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 2000;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 10px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        .notification-success {
+            background: #48bb78;
+        }
+
+        .notification-warning {
+            background: #ed8936;
+        }
+
+        .notification-error {
+            background: #f56565;
+        }
+
+        .notification-info {
+            background: #4299e1;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 考研效率助手</h1>
+            <p>专注当下，成就未来 - 每一分努力都不会白费</p>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value" id="todayStudyTime">0</div>
+                <div class="stat-label">今日学习时长(分钟)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="completedTasks">0</div>
+                <div class="stat-label">已完成任务</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="remainingTasks">0</div>
+                <div class="stat-label">剩余任务</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="daysToExam">180</div>
+                <div class="stat-label">距离考研(天)</div>
+            </div>
+        </div>
+
+        <div class="game-reminder">
+            <h2>🎮 想放松一下？</h2>
+            <p>在开始游戏前，让我们先看看今天的任务完成情况</p>
+            <button class="game-btn" onclick="checkGamePermission()">我想玩游戏</button>
+        </div>
+
+        <div class="charts-section">
+            <div class="chart-card">
+                <h2><span class="icon">📊</span> 学习时长趋势</h2>
+                <div class="chart-tabs">
+                    <button class="chart-tab active" onclick="switchTimeChart('week')">本周</button>
+                    <button class="chart-tab" onclick="switchTimeChart('month')">本月</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="timeChart"></canvas>
+                </div>
+                <div class="stats-summary">
+                    <div class="summary-item">
+                        <div class="summary-value" id="weekTotal">0</div>
+                        <div class="summary-label">本周总时长</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value" id="weekAvg">0</div>
+                        <div class="summary-label">日均时长</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value" id="weekMax">0</div>
+                        <div class="summary-label">单日最长</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2><span class="icon">📈</span> 任务完成情况</h2>
+                <div class="chart-tabs">
+                    <button class="chart-tab active" onclick="switchTaskChart('week')">本周</button>
+                    <button class="chart-tab" onclick="switchTaskChart('month')">本月</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="taskChart"></canvas>
+                </div>
+                <div class="stats-summary">
+                    <div class="summary-item">
+                        <div class="summary-value" id="taskCompleted">0</div>
+                        <div class="summary-label">已完成</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value" id="taskRate">0%</div>
+                        <div class="summary-label">完成率</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-value" id="taskStreak">0</div>
+                        <div class="summary-label">连续天数</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <h2><span class="icon">📝</span> 任务管理</h2>
+                <div class="task-input">
+                    <input type="text" id="taskName" placeholder="输入任务名称...">
+                    <select id="taskPriority">
+                        <option value="low">低</option>
+                        <option value="medium" selected>中</option>
+                        <option value="high">高</option>
+                    </select>
+                    <input type="number" id="taskDuration" placeholder="时长(分钟)" min="1" value="25">
+                    <button onclick="addTask()">添加</button>
+                </div>
+                <div class="task-list" id="taskList"></div>
+            </div>
+
+            <div class="card">
+                <h2><span class="icon">⏱️</span> 学习计时器</h2>
+                <div class="current-task" id="currentTask">选择一个任务开始学习</div>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="start-btn" onclick="startTimer()">开始</button>
+                    <button class="pause-btn" onclick="pauseTimer()">暂停</button>
+                    <button class="reset-btn" onclick="resetTimer()">重置</button>
+                </div>
+                <select id="taskSelect" onchange="selectTask()">
+                    <option value="">选择任务</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="motivation-section">
+            <h2><span class="icon">💪</span> 每日激励</h2>
+            <div class="quote" id="quote">"成功的秘诀在于对目标的执着追求。"</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+            </div>
+            <p>今日目标完成进度</p>
+        </div>
+    </div>
+
+    <div class="modal" id="reminderModal">
+        <div class="modal-content">
+            <h3 id="modalTitle">📢 学习提醒</h3>
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button class="continue-study" onclick="continueStudy()">继续学习</button>
+                <button class="play-anyway" onclick="playAnyway()">坚持要玩</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 数据存储
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let todayStudyTime = parseInt(localStorage.getItem('todayStudyTime')) || 0;
+        let studyHistory = JSON.parse(localStorage.getItem('studyHistory')) || {};
+        let taskHistory = JSON.parse(localStorage.getItem('taskHistory')) || {};
+        let timerInterval = null;
+        let currentTaskId = null;
+        let timerSeconds = 25 * 60;
+        let isPaused = false;
+
+        // 图表实例
+        let timeChart = null;
+        let taskChart = null;
+
+        // 励志名言
+        const quotes = [
+            "成功的秘诀在于对目标的执着追求。",
+            "今天付出的努力，是明天成功的基石。",
+            "考研路上，每一步都算数。",
+            "坚持不是看到希望才坚持，而是坚持了才能看到希望。",
+            "你的努力，时间会给你答案。",
+            "不为模糊不清的未来担忧，只为清清楚楚的现在努力。",
+            "考研是一场孤独的旅行，但终点是光明的。",
+            "今天的汗水，是明天的笑容。"
+        ];
+
+        // 初始化
+        function init() {
+            renderTasks();
+            updateStats();
+            updateTaskSelect();
+            updateQuote();
+            updateProgress();
+            updateDaysToExam();
+            initCharts();
+            
+            // 检查是否需要重置每日数据
+            const lastDate = localStorage.getItem('lastDate');
+            const today = new Date().toDateString();
+            if (lastDate !== today) {
+                saveDailyData();
+                todayStudyTime = 0;
+                localStorage.setItem('todayStudyTime', 0);
+                localStorage.setItem('lastDate', today);
+            }
+        }
+
+        // 保存每日数据
+        function saveDailyData() {
+            const today = new Date().toDateString();
+            const completedToday = tasks.filter(t => {
+                return t.completed && new Date(t.id).toDateString() === today;
+            }).length;
+            
+            studyHistory[today] = todayStudyTime;
+            taskHistory[today] = {
+                completed: completedToday,
+                total: tasks.filter(t => new Date(t.id).toDateString() === today).length
+            };
+            
+            localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+            localStorage.setItem('taskHistory', JSON.stringify(taskHistory));
+        }
+
+        // 初始化图表
+        function initCharts() {
+            // 学习时长图表
+            const timeCtx = document.getElementById('timeChart').getContext('2d');
+            timeChart = new Chart(timeCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '学习时长(分钟)',
+                        data: [],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#667eea',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            titleFont: {
+                                size: 14
+                            },
+                            bodyFont: {
+                                size: 13
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '分';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 任务完成图表
+            const taskCtx = document.getElementById('taskChart').getContext('2d');
+            taskChart = new Chart(taskCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '已完成',
+                        data: [],
+                        backgroundColor: '#48bb78',
+                        borderRadius: 8
+                    }, {
+                        label: '未完成',
+                        data: [],
+                        backgroundColor: '#e2e8f0',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            updateTimeChart('week');
+            updateTaskChart('week');
+        }
+
+        // 更新学习时长图表
+        function updateTimeChart(period) {
+            const data = getStudyTimeData(period);
+            timeChart.data.labels = data.labels;
+            timeChart.data.datasets[0].data = data.values;
+            timeChart.update();
+            
+            // 更新统计摘要
+            const total = data.values.reduce((a, b) => a + b, 0);
+            const avg = Math.round(total / data.values.length);
+            const max = Math.max(...data.values);
+            
+            document.getElementById('weekTotal').textContent = total + '分';
+            document.getElementById('weekAvg').textContent = avg + '分';
+            document.getElementById('weekMax').textContent = max + '分';
+        }
+
+        // 获取学习时长数据
+        function getStudyTimeData(period) {
+            const days = period === 'week' ? 7 : 30;
+            const labels = [];
+            const values = [];
+            
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                const label = period === 'week' 
+                    ? ['日', '一', '二', '三', '四', '五', '六'][date.getDay()]
+                    : (date.getMonth() + 1) + '/' + date.getDate();
+                
+                labels.push(label);
+                values.push(studyHistory[dateStr] || 0);
+            }
+            
+            return { labels, values };
+        }
+
+        // 更新任务完成图表
+        function updateTaskChart(period) {
+            const data = getTaskData(period);
+            taskChart.data.labels = data.labels;
+            taskChart.data.datasets[0].data = data.completed;
+            taskChart.data.datasets[1].data = data.uncompleted;
+            taskChart.update();
+            
+            // 更新统计摘要
+            const totalCompleted = data.completed.reduce((a, b) => a + b, 0);
+            const totalTasks = data.completed.reduce((a, b, i) => a + b + data.uncompleted[i], 0);
+            const rate = totalTasks > 0 ? Math.round((totalCompleted / totalTasks) * 100) : 0;
+            const streak = calculateStreak();
+            
+            document.getElementById('taskCompleted').textContent = totalCompleted + '个';
+            document.getElementById('taskRate').textContent = rate + '%';
+            document.getElementById('taskStreak').textContent = streak + '天';
+        }
+
+        // 获取任务数据
+        function getTaskData(period) {
+            const days = period === 'week' ? 7 : 30;
+            const labels = [];
+            const completed = [];
+            const uncompleted = [];
+            
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                const label = period === 'week' 
+                    ? ['日', '一', '二', '三', '四', '五', '六'][date.getDay()]
+                    : (date.getMonth() + 1) + '/' + date.getDate();
+                
+                labels.push(label);
+                
+                const dayData = taskHistory[dateStr] || { completed: 0, total: 0 };
+                completed.push(dayData.completed);
+                uncompleted.push(dayData.total - dayData.completed);
+            }
+            
+            return { labels, completed, uncompleted };
+        }
+
+        // 计算连续学习天数
+        function calculateStreak() {
+            let streak = 0;
+            const today = new Date();
+            
+            for (let i = 0; i < 365; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                const dayData = taskHistory[dateStr];
+                
+                if (dayData && dayData.completed > 0) {
+                    streak++;
+                } else if (i > 0) {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+        // 切换时间图表
+        function switchTimeChart(period) {
+            document.querySelectorAll('.chart-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updateTimeChart(period);
+        }
+
+        // 切换任务图表
+        function switchTaskChart(period) {
+            document.querySelectorAll('.chart-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updateTaskChart(period);
+        }
+
+        // 添加任务
+        function addTask() {
+            const taskName = document.getElementById('taskName').value.trim();
+            const taskPriority = document.getElementById('taskPriority').value;
+            const taskDuration = parseInt(document.getElementById('taskDuration').value);
+
+            if (!taskName) {
+                showNotification('请输入任务名称', 'warning');
+                return;
+            }
+
+            if (!taskDuration || taskDuration <= 0) {
+                showNotification('请输入有效的学习时长', 'warning');
+                return;
+            }
+
+            const task = {
+                id: Date.now(),
+                name: taskName,
+                priority: taskPriority,
+                duration: taskDuration,
+                completed: false,
+                studiedTime: 0,
+                createdAt: new Date().toISOString()
+            };
+
+            tasks.push(task);
+            saveTasks();
+            renderTasks();
+            updateTaskSelect();
+            updateStats();
+            updateProgress();
+
+            // 清空输入
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDuration').value = '25';
+
+            showNotification('任务添加成功！', 'success');
+        }
+
+        // 渲染任务列表
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.forEach(task => {
+                const taskItem = document.createElement('div');
+                taskItem.className = `task-item priority-${task.priority} ${task.completed ? 'completed' : ''}`;
+                
+                taskItem.innerHTML = `
+                    <div class="task-info">
+                        <div class="task-name">${task.name}</div>
+                        <div class="task-meta">
+                            优先级: ${task.priority === 'high' ? '高' : task.priority === 'medium' ? '中' : '低'} | 
+                            预计: ${task.duration}分钟 | 
+                            已学: ${task.studiedTime}分钟
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        ${!task.completed ? `<button class="complete-btn" onclick="completeTask(${task.id})">完成</button>` : ''}
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">删除</button>
+                    </div>
+                `;
+                
+                taskList.appendChild(taskItem);
+            });
+        }
+
+        // 完成任务
+        function completeTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = true;
+                task.completedAt = new Date().toISOString();
+                saveTasks();
+                renderTasks();
+                updateStats();
+                updateProgress();
+                showNotification(`恭喜完成"${task.name}"！`, 'success');
+                
+                // 更新图表
+                const today = new Date().toDateString();
+                if (taskHistory[today]) {
+                    taskHistory[today].completed++;
+                } else {
+                    taskHistory[today] = { completed: 1, total: 1 };
+                }
+                localStorage.setItem('taskHistory', JSON.stringify(taskHistory));
+                updateTaskChart('week');
+            }
+        }
+
+        // 删除任务
+        function deleteTask(taskId) {
+            tasks = tasks.filter(t => t.id !== taskId);
+            saveTasks();
+            renderTasks();
+            updateTaskSelect();
+            updateStats();
+            updateProgress();
+            showNotification('任务已删除', 'info');
+        }
+
+        // 选择任务
+        function selectTask() {
+            const select = document.getElementById('taskSelect');
+            const taskId = parseInt(select.value);
+            
+            if (taskId) {
+                const task = tasks.find(t => t.id === taskId);
+                if (task && !task.completed) {
+                    currentTaskId = taskId;
+                    document.getElementById('currentTask').textContent = `当前任务: ${task.name}`;
+                    timerSeconds = task.duration * 60;
+                    updateTimerDisplay();
+                }
+            } else {
+                currentTaskId = null;
+                document.getElementById('currentTask').textContent = '选择一个任务开始学习';
+                timerSeconds = 25 * 60;
+                updateTimerDisplay();
+            }
+        }
+
+        // 开始计时
+        function startTimer() {
+            if (!currentTaskId) {
+                showNotification('请先选择一个任务', 'warning');
+                return;
+            }
+
+            if (timerInterval) return;
+
+            isPaused = false;
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    completeTimer();
+                }
+            }, 1000);
+        }
+
+        // 暂停计时
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                isPaused = true;
+                
+                // 保存已学习时间
+                const task = tasks.find(t => t.id === currentTaskId);
+                if (task) {
+                    const studiedMinutes = Math.floor((task.duration * 60 - timerSeconds) / 60);
+                    task.studiedTime += studiedMinutes;
+                    todayStudyTime += studiedMinutes;
+                    saveTasks();
+                    updateStats();
+                    
+                    // 更新学习历史
+                    const today = new Date().toDateString();
+                    studyHistory[today] = todayStudyTime;
+                    localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+                    updateTimeChart('week');
+                }
+            }
+        }
+
+        // 重置计时器
+        function resetTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            
+            if (currentTaskId) {
+                const task = tasks.find(t => t.id === currentTaskId);
+                timerSeconds = task.duration * 60;
+            } else {
+                timerSeconds = 25 * 60;
+            }
+            
+            updateTimerDisplay();
+            isPaused = false;
+        }
+
+        // 计时完成
+        function completeTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            
+            const task = tasks.find(t => t.id === currentTaskId);
+            todayStudyTime += task.duration;
+            task.studiedTime += task.duration;
+            
+            saveTasks();
+            updateStats();
+            updateProgress();
+            
+            // 更新学习历史
+            const today = new Date().toDateString();
+            studyHistory[today] = todayStudyTime;
+            localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+            updateTimeChart('week');
+            
+            showNotification(`太棒了！完成了${task.duration}分钟的学习！`, 'success');
+            
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+                audio.play();
+            } catch (e) {}
+        }
+
+        // 更新计时器显示
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // 检查游戏权限
+        function checkGamePermission() {
+            const incompleteTasks = tasks.filter(t => !t.completed);
+            const completedToday = tasks.filter(t => t.completed).length;
+            
+            if (incompleteTasks.length === 0) {
+                showModal('🎉 恭喜！', '今天的任务都完成了！你可以放心地玩游戏了，放松一下是为了更好地出发！');
+            } else if (completedToday >= 3) {
+                showModal('👍 不错！', `你已经完成了${completedToday}个任务，很棒！不过还有${incompleteTasks.length}个任务等待完成。要不再坚持一下？`);
+            } else {
+                const totalDuration = incompleteTasks.reduce((sum, task) => sum + task.duration, 0);
+                showModal('📖 加油！', `今天还有${incompleteTasks.length}个任务未完成，预计需要${totalDuration}分钟。坚持一下，完成后再玩更有成就感！`);
+            }
+        }
+
+        // 显示模态框
+        function showModal(title, message) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('reminderModal').style.display = 'flex';
+        }
+
+        // 继续学习
+        function continueStudy() {
+            document.getElementById('reminderModal').style.display = 'none';
+            showNotification('好的，继续加油！💪', 'info');
+        }
+
+        // 坚持要玩
+        function playAnyway() {
+            document.getElementById('reminderModal').style.display = 'none';
+            const incompleteTasks = tasks.filter(t => !t.completed);
+            if (incompleteTasks.length > 0) {
+                showNotification('记得设置闹钟，不要玩太久哦！⏰', 'warning');
+            }
+        }
+
+        // 更新统计数据
+        function updateStats() {
+            document.getElementById('todayStudyTime').textContent = todayStudyTime;
+            document.getElementById('completedTasks').textContent = tasks.filter(t => t.completed).length;
+            document.getElementById('remainingTasks').textContent = tasks.filter(t => !t.completed).length;
+            
+            localStorage.setItem('todayStudyTime', todayStudyTime);
+        }
+
+        // 更新任务选择下拉框
+        function updateTaskSelect() {
+            const select = document.getElementById('taskSelect');
+            select.innerHTML = '<option value="">选择任务</option>';
+            
+            tasks.filter(t => !t.completed).forEach(task => {
+                const option = document.createElement('option');
+                option.value = task.id;
+                option.textContent = `${task.name} (${task.duration}分钟)`;
+                select.appendChild(option);
+            });
+        }
+
+        // 更新励志名言
+        function updateQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').textContent = `"${quote}"`;
+        }
+
+        // 更新进度条
+        function updateProgress() {
+            const totalTasks = tasks.length;
+            const completedTasks = tasks.filter(t => t.completed).length;
+            const progress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${progress}%`;
+            progressFill.textContent = `${progress}%`;
+        }
+
+        // 更新距离考研天数
+        function updateDaysToExam() {
+            const examDate = new Date('2024-12-21');
+            const today = new Date();
+            const diffTime = examDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('daysToExam').textContent = diffDays > 0 ? diffDays : 0;
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${getNotificationIcon(type)}</span>
+                    <span class="notification-message">${message}</span>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // 获取通知图标
+        function getNotificationIcon(type) {
+            switch(type) {
+                case 'success': return '✅';
+                case 'warning': return '⚠️';
+                case 'error': return '❌';
+                default: return 'ℹ️';
+            }
+        }
+
+        // 保存任务
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // 添加动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 初始化应用
+        init();
+
+        // 定时更新励志名言（每30分钟）
+        setInterval(updateQuote, 30 * 60 * 1000);
+
+        // 自动保存数据（每5分钟）
+        setInterval(() => {
+            saveDailyData();
+        }, 5 * 60 * 1000);
+
+        // 页面关闭前保存数据
+        window.addEventListener('beforeunload', saveDailyData);
+    </script>
+</body>
+</html>
+
+
+
+							<script>
+                            	// 学习时长历史
+studyHistory = {
+    "2024-01-01": 120,  // 1月1日学习120分钟
+    "2024-01-02": 90,   // 1月2日学习90分钟
+    // ...
+}
+
+// 任务完成历史
+taskHistory = {
+    "2024-01-01": {
+        completed: 5,    // 完成5个任务
+        total: 6        // 总共6个任务
+    },
+    // ...
+}
+
+
+        // 数据存储
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let todayStudyTime = parseInt(localStorage.getItem('todayStudyTime')) || 0;
+        let studyHistory = JSON.parse(localStorage.getItem('studyHistory')) || {};
+        let taskHistory = JSON.parse(localStorage.getItem('taskHistory')) || {};
+        let timerInterval = null;
+        let currentTaskId = null;
+        let timerSeconds = 25 * 60;
+        let isPaused = false;
+
+        // 图表实例
+        let timeChart = null;
+        let taskChart = null;
+
+        // 励志名言
+        const quotes = [
+            "成功的秘诀在于对目标的执着追求。",
+            "今天付出的努力，是明天成功的基石。",
+            "考研路上，每一步都算数。",
+            "坚持不是看到希望才坚持，而是坚持了才能看到希望。",
+            "你的努力，时间会给你答案。",
+            "不为模糊不清的未来担忧，只为清清楚楚的现在努力。",
+            "考研是一场孤独的旅行，但终点是光明的。",
+            "今天的汗水，是明天的笑容。"
+        ];
+
+        // 初始化
+        function init() {
+            renderTasks();
+            updateStats();
+            updateTaskSelect();
+            updateQuote();
+            updateProgress();
+            updateDaysToExam();
+            initCharts();
+            
+            // 检查是否需要重置每日数据
+            const lastDate = localStorage.getItem('lastDate');
+            const today = new Date().toDateString();
+            if (lastDate !== today) {
+                saveDailyData();
+                todayStudyTime = 0;
+                localStorage.setItem('todayStudyTime', 0);
+                localStorage.setItem('lastDate', today);
+            }
+        }
+
+        // 保存每日数据
+        function saveDailyData() {
+            const today = new Date().toDateString();
+            const completedToday = tasks.filter(t => {
+                return t.completed && new Date(t.id).toDateString() === today;
+            }).length;
+            
+            studyHistory[today] = todayStudyTime;
+            taskHistory[today] = {
+                completed: completedToday,
+                total: tasks.filter(t => new Date(t.id).toDateString() === today).length
+            };
+            
+            localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+            localStorage.setItem('taskHistory', JSON.stringify(taskHistory));
+        }
+
+        // 初始化图表
+        function initCharts() {
+            // 学习时长图表
+            const timeCtx = document.getElementById('timeChart').getContext('2d');
+            timeChart = new Chart(timeCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '学习时长(分钟)',
+                        data: [],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#667eea',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8,
+                            titleFont: {
+                                size: 14
+                            },
+                            bodyFont: {
+                                size: 13
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '分';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 任务完成图表
+            const taskCtx = document.getElementById('taskChart').getContext('2d');
+            taskChart = new Chart(taskCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '已完成',
+                        data: [],
+                        backgroundColor: '#48bb78',
+                        borderRadius: 8
+                    }, {
+                        label: '未完成',
+                        data: [],
+                        backgroundColor: '#e2e8f0',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            updateTimeChart('week');
+            updateTaskChart('week');
+        }
+
+        // 更新学习时长图表
+        function updateTimeChart(period) {
+            const data = getStudyTimeData(period);
+            timeChart.data.labels = data.labels;
+            timeChart.data.datasets[0].data = data.values;
+            timeChart.update();
+            
+            // 更新统计摘要
+            const total = data.values.reduce((a, b) => a + b, 0);
+            const avg = Math.round(total / data.values.length);
+            const max = Math.max(...data.values);
+            
+            document.getElementById('weekTotal').textContent = total + '分';
+            document.getElementById('weekAvg').textContent = avg + '分';
+            document.getElementById('weekMax').textContent = max + '分';
+        }
+
+        // 获取学习时长数据
+        function getStudyTimeData(period) {
+            const days = period === 'week' ? 7 : 30;
+            const labels = [];
+            const values = [];
+            
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                const label = period === 'week' 
+                    ? ['日', '一', '二', '三', '四', '五', '六'][date.getDay()]
+                    : (date.getMonth() + 1) + '/' + date.getDate();
+                
+                labels.push(label);
+                values.push(studyHistory[dateStr] || 0);
+            }
+            
+            return { labels, values };
+        }
+
+        // 更新任务完成图表
+        function updateTaskChart(period) {
+            const data = getTaskData(period);
+            taskChart.data.labels = data.labels;
+            taskChart.data.datasets[0].data = data.completed;
+            taskChart.data.datasets[1].data = data.uncompleted;
+            taskChart.update();
+            
+            // 更新统计摘要
+            const totalCompleted = data.completed.reduce((a, b) => a + b, 0);
+            const totalTasks = data.completed.reduce((a, b, i) => a + b + data.uncompleted[i], 0);
+            const rate = totalTasks > 0 ? Math.round((totalCompleted / totalTasks) * 100) : 0;
+            const streak = calculateStreak();
+            
+            document.getElementById('taskCompleted').textContent = totalCompleted + '个';
+            document.getElementById('taskRate').textContent = rate + '%';
+            document.getElementById('taskStreak').textContent = streak + '天';
+        }
+
+        // 获取任务数据
+        function getTaskData(period) {
+            const days = period === 'week' ? 7 : 30;
+            const labels = [];
+            const completed = [];
+            const uncompleted = [];
+            
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                const label = period === 'week' 
+                    ? ['日', '一', '二', '三', '四', '五', '六'][date.getDay()]
+                    : (date.getMonth() + 1) + '/' + date.getDate();
+                
+                labels.push(label);
+                
+                const dayData = taskHistory[dateStr] || { completed: 0, total: 0 };
+                completed.push(dayData.completed);
+                uncompleted.push(dayData.total - dayData.completed);
+            }
+            
+            return { labels, completed, uncompleted };
+        }
+
+        // 计算连续学习天数
+        function calculateStreak() {
+            let streak = 0;
+            const today = new Date();
+            
+            for (let i = 0; i < 365; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toDateString();
+                const dayData = taskHistory[dateStr];
+                
+                if (dayData && dayData.completed > 0) {
+                    streak++;
+                } else if (i > 0) {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+        // 切换时间图表
+        function switchTimeChart(period) {
+            document.querySelectorAll('.chart-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updateTimeChart(period);
+        }
+
+        // 切换任务图表
+        function switchTaskChart(period) {
+            document.querySelectorAll('.chart-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updateTaskChart(period);
+        }
+
+        // 添加任务
+        function addTask() {
+            const taskName = document.getElementById('taskName').value.trim();
+            const taskPriority = document.getElementById('taskPriority').value;
+            const taskDuration = parseInt(document.getElementById('taskDuration').value);
+
+            if (!taskName) {
+                showNotification('请输入任务名称', 'warning');
+                return;
+            }
+
+            if (!taskDuration || taskDuration <= 0) {
+                showNotification('请输入有效的学习时长', 'warning');
+                return;
+            }
+
+            const task = {
+                id: Date.now(),
+                name: taskName,
+                priority: taskPriority,
+                duration: taskDuration,
+                completed: false,
+                studiedTime: 0,
+                createdAt: new Date().toISOString()
+            };
+
+            tasks.push(task);
+            saveTasks();
+            renderTasks();
+            updateTaskSelect();
+            updateStats();
+            updateProgress();
+
+            // 清空输入
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDuration').value = '25';
+
+            showNotification('任务添加成功！', 'success');
+        }
+
+        // 渲染任务列表
+        function renderTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            tasks.forEach(task => {
+                const taskItem = document.createElement('div');
+                taskItem.className = `task-item priority-${task.priority} ${task.completed ? 'completed' : ''}`;
+                
+                taskItem.innerHTML = `
+                    <div class="task-info">
+                        <div class="task-name">${task.name}</div>
+                        <div class="task-meta">
+                            优先级: ${task.priority === 'high' ? '高' : task.priority === 'medium' ? '中' : '低'} | 
+                            预计: ${task.duration}分钟 | 
+                            已学: ${task.studiedTime}分钟
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        ${!task.completed ? `<button class="complete-btn" onclick="completeTask(${task.id})">完成</button>` : ''}
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">删除</button>
+                    </div>
+                `;
+                
+                taskList.appendChild(taskItem);
+            });
+        }
+
+        // 完成任务
+        function completeTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = true;
+                task.completedAt = new Date().toISOString();
+                saveTasks();
+                renderTasks();
+                updateStats();
+                updateProgress();
+                showNotification(`恭喜完成"${task.name}"！`, 'success');
+                
+                // 更新图表
+                const today = new Date().toDateString();
+                if (taskHistory[today]) {
+                    taskHistory[today].completed++;
+                } else {
+                    taskHistory[today] = { completed: 1, total: 1 };
+                }
+                localStorage.setItem('taskHistory', JSON.stringify(taskHistory));
+                updateTaskChart('week');
+            }
+        }
+
+        // 删除任务
+        function deleteTask(taskId) {
+            tasks = tasks.filter(t => t.id !== taskId);
+            saveTasks();
+            renderTasks();
+            updateTaskSelect();
+            updateStats();
+            updateProgress();
+            showNotification('任务已删除', 'info');
+        }
+
+        // 选择任务
+        function selectTask() {
+            const select = document.getElementById('taskSelect');
+            const taskId = parseInt(select.value);
+            
+            if (taskId) {
+                const task = tasks.find(t => t.id === taskId);
+                if (task && !task.completed) {
+                    currentTaskId = taskId;
+                    document.getElementById('currentTask').textContent = `当前任务: ${task.name}`;
+                    timerSeconds = task.duration * 60;
+                    updateTimerDisplay();
+                }
+            } else {
+                currentTaskId = null;
+                document.getElementById('currentTask').textContent = '选择一个任务开始学习';
+                timerSeconds = 25 * 60;
+                updateTimerDisplay();
+            }
+        }
+
+        // 开始计时
+        function startTimer() {
+            if (!currentTaskId) {
+                showNotification('请先选择一个任务', 'warning');
+                return;
+            }
+
+            if (timerInterval) return;
+
+            isPaused = false;
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    completeTimer();
+                }
+            }, 1000);
+        }
+
+        // 暂停计时
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                isPaused = true;
+                
+                // 保存已学习时间
+                const task = tasks.find(t => t.id === currentTaskId);
+                if (task) {
+                    const studiedMinutes = Math.floor((task.duration * 60 - timerSeconds) / 60);
+                    task.studiedTime += studiedMinutes;
+                    todayStudyTime += studiedMinutes;
+                    saveTasks();
+                    updateStats();
+                    
+                    // 更新学习历史
+                    const today = new Date().toDateString();
+                    studyHistory[today] = todayStudyTime;
+                    localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+                    updateTimeChart('week');
+                }
+            }
+        }
+
+        // 重置计时器
+        function resetTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            
+            if (currentTaskId) {
+                const task = tasks.find(t => t.id === currentTaskId);
+                timerSeconds = task.duration * 60;
+            } else {
+                timerSeconds = 25 * 60;
+            }
+            
+            updateTimerDisplay();
+            isPaused = false;
+        }
+
+        // 计时完成
+        function completeTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            
+            const task = tasks.find(t => t.id === currentTaskId);
+            todayStudyTime += task.duration;
+            task.studiedTime += task.duration;
+            
+            saveTasks();
+            updateStats();
+            updateProgress();
+            
+            // 更新学习历史
+            const today = new Date().toDateString();
+            studyHistory[today] = todayStudyTime;
+            localStorage.setItem('studyHistory', JSON.stringify(studyHistory));
+            updateTimeChart('week');
+            
+            showNotification(`太棒了！完成了${task.duration}分钟的学习！`, 'success');
+            
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmFgU7k9n1unEiBC13yO/eizEIHWq+8+OWT');
+                audio.play();
+            } catch (e) {}
+        }
+
+        // 更新计时器显示
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // 检查游戏权限
+        function checkGamePermission() {
+            const incompleteTasks = tasks.filter(t => !t.completed);
+            const completedToday = tasks.filter(t => t.completed).length;
+            
+            if (incompleteTasks.length === 0) {
+                showModal('🎉 恭喜！', '今天的任务都完成了！你可以放心地玩游戏了，放松一下是为了更好地出发！');
+            } else if (completedToday >= 3) {
+                showModal('👍 不错！', `你已经完成了${completedToday}个任务，很棒！不过还有${incompleteTasks.length}个任务等待完成。要不再坚持一下？`);
+            } else {
+                const totalDuration = incompleteTasks.reduce((sum, task) => sum + task.duration, 0);
+                showModal('📖 加油！', `今天还有${incompleteTasks.length}个任务未完成，预计需要${totalDuration}分钟。坚持一下，完成后再玩更有成就感！`);
+            }
+        }
+
+        // 显示模态框
+        function showModal(title, message) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('reminderModal').style.display = 'flex';
+        }
+
+        // 继续学习
+        function continueStudy() {
+            document.getElementById('reminderModal').style.display = 'none';
+            showNotification('好的，继续加油！💪', 'info');
+        }
+
+        // 坚持要玩
+        function playAnyway() {
+            document.getElementById('reminderModal').style.display = 'none';
+            const incompleteTasks = tasks.filter(t => !t.completed);
+            if (incompleteTasks.length > 0) {
+                showNotification('记得设置闹钟，不要玩太久哦！⏰', 'warning');
+            }
+        }
+
+        // 更新统计数据
+        function updateStats() {
+            document.getElementById('todayStudyTime').textContent = todayStudyTime;
+            document.getElementById('completedTasks').textContent = tasks.filter(t => t.completed).length;
+            document.getElementById('remainingTasks').textContent = tasks.filter(t => !t.completed).length;
+            
+            localStorage.setItem('todayStudyTime', todayStudyTime);
+        }
+
+        // 更新任务选择下拉框
+        function updateTaskSelect() {
+            const select = document.getElementById('taskSelect');
+            select.innerHTML = '<option value="">选择任务</option>';
+            
+            tasks.filter(t => !t.completed).forEach(task => {
+                const option = document.createElement('option');
+                option.value = task.id;
+                option.textContent = `${task.name} (${task.duration}分钟)`;
+                select.appendChild(option);
+            });
+        }
+
+        // 更新励志名言
+        function updateQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quote').textContent = `"${quote}"`;
+        }
+
+        // 更新进度条
+        function updateProgress() {
+            const totalTasks = tasks.length;
+            const completedTasks = tasks.filter(t => t.completed).length;
+            const progress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${progress}%`;
+            progressFill.textContent = `${progress}%`;
+        }
+
+        // 更新距离考研天数
+        function updateDaysToExam() {
+            const examDate = new Date('2024-12-21');
+            const today = new Date();
+            const diffTime = examDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('daysToExam').textContent = diffDays > 0 ? diffDays : 0;
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${getNotificationIcon(type)}</span>
+                    <span class="notification-message">${message}</span>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // 获取通知图标
+        function getNotificationIcon(type) {
+            switch(type) {
+                case 'success': return '✅';
+                case 'warning': return '⚠️';
+                case 'error': return '❌';
+                default: return 'ℹ️';
+            }
+        }
+
+        // 保存任务
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // 添加动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 初始化应用
+        init();
+
+        // 定时更新励志名言（每30分钟）
+        setInterval(updateQuote, 30 * 60 * 1000);
+
+        // 自动保存数据（每5分钟）
+        setInterval(() => {
+            saveDailyData();
+        }, 5 * 60 * 1000);
+
+        // 页面关闭前保存数据
+        window.addEventListener('beforeunload', saveDailyData);
+    
+
+							</script>
+                        </body>
+                        </html>
+                    
